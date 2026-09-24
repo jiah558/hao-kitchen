@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "_build/app.min.*.chunk.*"
+      - "_build/app.min.*.b64.*"
 permissions:
   contents: write
 concurrency:
@@ -18,8 +18,8 @@ jobs:
         run: |
           set -euo pipefail
           for i in 0 1 2; do
-            if ls _build/app.min.${i}.js.chunk.* >/dev/null 2>&1; then
-              cat $(ls _build/app.min.${i}.js.chunk.* | sort -V) > "app.min.${i}.js"
+            if ls _build/app.min.${i}.js.b64.* >/dev/null 2>&1; then
+              cat $(ls _build/app.min.${i}.js.b64.* | sort -V) | base64 -d > "app.min.${i}.js"
               echo "Wrote app.min.${i}.js ($(wc -c < app.min.${i}.js) bytes)"
             fi
           done
@@ -33,6 +33,9 @@ jobs:
             '})();' > app.js
           echo "Wrote app.js ($(wc -c < app.js) bytes)"
           test -s app.min.0.js && test -s app.min.1.js && test -s app.min.2.js
+          # verify concat matches expected size ~37k
+          cat app.min.0.js app.min.1.js app.min.2.js > /tmp/app.min.joined.js
+          echo "Joined $(wc -c < /tmp/app.min.joined.js) bytes"
       - name: Commit assembled min app
         run: |
           git config user.name "github-actions[bot]"
@@ -41,6 +44,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "Assemble app.min.*.js from chunks; switch app.js loader"
+            git commit -m "Assemble app.min.*.js from base64 chunks; switch app.js loader"
             git push
           fi
