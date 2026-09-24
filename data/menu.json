@@ -1,0 +1,217 @@
+{
+  "version": 2,
+  "updatedAt": "2026-09-24T13:00:00.000Z",
+  "dishes": [
+    {
+      "id": "seed-01",
+      "name": "辣椒炒肉",
+      "category": "荤菜炒菜",
+      "rating": 3,
+      "notes": "",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-02",
+      "name": "韭黄炒蛋炒肉",
+      "category": "荤菜炒菜",
+      "rating": 4,
+      "notes": "可选盖码饭or汤粉",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-03",
+      "name": "农家一碗香",
+      "category": "荤菜炒菜",
+      "rating": 2.5,
+      "notes": "测试版2.0",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-04",
+      "name": "生烧排骨",
+      "category": "荤菜炒菜",
+      "rating": 4,
+      "notes": "",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-05",
+      "name": "西芹炒牛肉",
+      "category": "荤菜炒菜",
+      "rating": 3.5,
+      "notes": "",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-06",
+      "name": "香菜牛肉",
+      "category": "荤菜炒菜",
+      "rating": 3,
+      "notes": "",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-07",
+      "name": "豪牌鸡公煲",
+      "category": "荤菜炒菜",
+      "rating": 2.5,
+      "notes": "测试版3.0",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-08",
+      "name": "衡阳茶油小炒鸡",
+      "category": "荤菜炒菜",
+      "rating": 2.5,
+      "notes": "待升级",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-09",
+      "name": "临沂炒鸡",
+      "category": "荤菜炒菜",
+      "rating": 3,
+      "notes": "贾冰版",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-10",
+      "name": "可乐鸡翅",
+      "category": "荤菜炒菜",
+      "rating": 4,
+      "notes": "",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-11",
+      "name": "红烧肉",
+      "category": "荤菜炒菜",
+      "rating": 4,
+      "notes": "",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-12",
+      "name": "丝瓜蛋汤",
+      "category": "小菜素菜",
+      "rating": 3,
+      "notes": "",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-13",
+      "name": "炒时蔬",
+      "category": "小菜素菜",
+      "rating": 2.5,
+      "notes": "油麦菜/娃娃菜/上海青",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-14",
+      "name": "豪牌炒方便面",
+      "category": "特色主食",
+      "rating": 3,
+      "notes": "",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-15",
+      "name": "豪牌蛋炒饭",
+      "category": "特色主食",
+      "rating": 3,
+      "notes": "金包银/经典/酱香型",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-16",
+      "name": "胖东来葡萄汁",
+      "category": "饮品",
+      "rating": 3.5,
+      "notes": "",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-17",
+      "name": "胖东来橙汁",
+      "category": "饮品",
+      "rating": 2.5,
+      "notes": "",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-18",
+      "name": "港版可乐",
+      "category": "饮品",
+      "rating": 3,
+      "notes": "无糖/柠檬",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    },
+    {
+      "id": "seed-19",
+      "name": "保拉纳白啤",
+      "category": "饮品",
+      "rating": 3,
+      "notes": "",
+      "ingredients": [],
+      "recipe": "",
+      "tags": [],
+      "updatedAt": "2026-09-24T13:00:00.000Z"
+    }
+  ],
+  "weeks": {},
+  "shoppingDone": {}
+}
