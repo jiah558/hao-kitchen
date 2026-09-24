@@ -26,7 +26,10 @@ jobs:
           elif [ -f _build/logo.png.b64 ]; then
             decode _build/logo.png.b64 logo.png
           fi
-          if [ -f _build/logo-128.png.b64 ]; then
+          if ls _build/logo-128.png.b64.* >/dev/null 2>&1; then
+            cat _build/logo-128.png.b64.* > /tmp/logo-128.png.b64.all
+            decode /tmp/logo-128.png.b64.all logo-128.png
+          elif [ -f _build/logo-128.png.b64 ]; then
             decode _build/logo-128.png.b64 logo-128.png
           fi
           if [ -f _build/favicon.png.b64 ]; then
