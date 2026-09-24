@@ -1,0 +1,43 @@
+name: Decode logos
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '_build/logo*.b64*'
+      - '_build/favicon.png.b64'
+permissions:
+  contents: write
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode logo assets
+        run: |
+          set -euo pipefail
+          mkdir -p _build
+          if ls _build/logo.png.b64.* >/dev/null 2>&1; then
+            cat _build/logo.png.b64.* | tr -d '\n\r ' | base64 -d > logo.png
+          elif [ -f _build/logo.png.b64 ]; then
+            tr -d '\n\r ' < _build/logo.png.b64 | base64 -d > logo.png
+          fi
+          if [ -f _build/logo-128.png.b64 ]; then
+            tr -d '\n\r ' < _build/logo-128.png.b64 | base64 -d > logo-128.png
+          fi
+          if [ -f _build/favicon.png.b64 ]; then
+            tr -d '\n\r ' < _build/favicon.png.b64 | base64 -d > favicon.png
+          fi
+          file logo.png logo-128.png favicon.png || true
+          ls -la logo.png logo-128.png favicon.png
+      - name: Commit decoded logos
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add logo.png logo-128.png favicon.png
+          if git diff --cached --quiet; then
+            echo "No logo changes"
+            exit 0
+          fi
+          git commit -m "Decode selfie logo and favicon from base64"
+          git push
