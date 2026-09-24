@@ -16,16 +16,21 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p _build
+          decode() {
+            # Accept raw base64 or pipe-substituted (/ stored as |)
+            tr '|' '/' < "$1" | tr -d '\n\r ' | base64 -d > "$2"
+          }
           if ls _build/logo.png.b64.* >/dev/null 2>&1; then
-            cat _build/logo.png.b64.* | tr -d '\n\r ' | base64 -d > logo.png
+            cat _build/logo.png.b64.* > /tmp/logo.png.b64.all
+            decode /tmp/logo.png.b64.all logo.png
           elif [ -f _build/logo.png.b64 ]; then
-            tr -d '\n\r ' < _build/logo.png.b64 | base64 -d > logo.png
+            decode _build/logo.png.b64 logo.png
           fi
           if [ -f _build/logo-128.png.b64 ]; then
-            tr -d '\n\r ' < _build/logo-128.png.b64 | base64 -d > logo-128.png
+            decode _build/logo-128.png.b64 logo-128.png
           fi
           if [ -f _build/favicon.png.b64 ]; then
-            tr -d '\n\r ' < _build/favicon.png.b64 | base64 -d > favicon.png
+            decode _build/favicon.png.b64 favicon.png
           fi
           file logo.png logo-128.png favicon.png || true
           ls -la logo.png logo-128.png favicon.png
