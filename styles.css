@@ -1,1 +1,3 @@
-PLACEHOLDER
+/* Real stylesheet for 豪の小锅小灶 — split for CDN font fallbacks */
+@import url("./styles-a.css");
+@import url("./styles-b.css");
