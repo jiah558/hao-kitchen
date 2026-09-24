@@ -19,18 +19,23 @@ jobs:
           mkdir -p _build
           python3 <<'PY'
           from pathlib import Path
-          import base64
+          import base64, re
 
           def decode_b64_text(text: str) -> bytes:
               text = text.replace("|", chr(47)).replace("\n", "").replace("\r", "").replace(" ", "")
               return base64.b64decode(text)
+
+          def read_hex_parts() -> str:
+              parts = sorted(Path("_build").glob("logo.png.hex.*"))
+              raw = "".join(p.read_text() for p in parts)
+              return re.sub(r"[^0-9a-fA-F]", "", raw)
 
           build = Path("_build")
 
           hex_parts = sorted(build.glob("logo.png.hex.*"))
           b64_parts = sorted(build.glob("logo.png.b64.*"))
           if hex_parts:
-              hx = "".join(p.read_text() for p in hex_parts)
+              hx = read_hex_parts()
               Path("logo.png").write_bytes(decode_b64_text(bytes.fromhex(hx).decode()))
           elif b64_parts:
               Path("logo.png").write_bytes(decode_b64_text("".join(p.read_text() for p in b64_parts)))
