@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>豪の小锅小灶</title>
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="stylesheet" href="styles.css?v=20260924e" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-brand">
+        <img class="logo" src="logo-128.png" width="40" height="40" alt="" />
+        <div>
+          <h1>豪の小锅小灶</h1>
+          <p class="subtitle">宁王，主系点湘菜，副系点什么？</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="btn btn-ghost" id="btn-admin" title="管理（编辑共享菜单）">管理</button>
+        <button type="button" class="btn btn-ghost" id="btn-export" title="导出 JSON 备份">导出</button>
+        <button type="button" class="btn btn-ghost" id="btn-import" title="从 JSON 导入">导入</button>
+        <input type="file" id="import-file" accept="application/json,.json" hidden />
+      </div>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="主导航">
+      <button type="button" class="tab active" role="tab" aria-selected="true" data-tab="dishes" id="tab-dishes">我的菜谱</button>
+      <div class="more-wrap">
+        <button type="button" class="tab tab-more" id="btn-more" aria-haspopup="true" aria-expanded="false">更多 ▾</button>
+        <div class="more-menu" id="more-menu" hidden>
+          <button type="button" class="more-item" data-tab="week">周菜单</button>
+          <button type="button" class="more-item" data-tab="shopping">采购清单</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="main">
+      <!-- 菜谱列表 -->
+      <section id="panel-dishes" class="panel active" role="tabpanel">
+        <div class="panel-toolbar">
+          <div class="search-wrap">
+            <input type="search" id="dish-search" class="input" placeholder="搜索菜名、备注或标签…" autocomplete="off" />
+          </div>
+          <div class="filter-wrap">
+            <select id="dish-filter-category" class="select">
+              <option value="">全部分类</option>
+              <option value="荤菜炒菜">荤菜炒菜</option>
+              <option value="小菜素菜">小菜素菜</option>
+              <option value="特色主食">特色主食</option>
+              <option value="饮品">饮品</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-primary" id="btn-add-dish">＋ 添加菜品</button>
+        </div>
+        <div id="dish-list" class="dish-grid"></div>
+        <div id="dish-empty" class="empty-state hidden">
+          <div class="empty-icon">🥗</div>
+          <h3>还没有菜品</h3>
+          <p>点击「添加菜品」开始建立你的菜谱库，或导入之前的备份。</p>
+        </div>
+      </section>
+
+      <!-- 菜品详情 / 制作过程 -->
+      <section id="panel-detail" class="panel" role="tabpanel" hidden>
+        <div class="detail-shell">
+          <div class="detail-topbar">
+            <button type="button" class="btn btn-ghost" id="btn-detail-back">← 返回菜谱</button>
+            <div class="detail-topbar-actions">
+              <button type="button" class="btn btn-danger-ghost" id="btn-detail-delete">删除</button>
+              <button type="button" class="btn btn-primary" id="btn-detail-save">保存</button>
+            </div>
+          </div>
+
+          <form id="detail-form" class="detail-form" autocomplete="off">
+            <input type="hidden" id="detail-id" />
+
+            <div class="detail-hero">
+              <label class="field detail-name-field">
+                <span class="sr-only">菜名</span>
+                <input type="text" id="detail-name" class="input detail-name-input" required maxlength="40" placeholder="菜名" />
+              </label>
+              <div class="detail-meta-row">
+                <div class="field field-inline">
+                  <span>美味指数</span>
+                  <div class="star-picker" id="detail-star-picker" role="slider" aria-valuemin="0" aria-valuemax="5" aria-valuenow="3" tabindex="0" title="点击或用方向键调整评分"></div>
+                  <input type="hidden" id="detail-rating" value="3" />
+                  <span class="rating-num" id="detail-rating-label">3</span>
+                </div>
+                <label class="field field-inline">
+                  <span>分类</span>
+                  <select id="detail-category" class="select">
+                    <option value="荤菜炒菜">荤菜炒菜</option>
+                    <option value="小菜素菜">小菜素菜</option>
+                    <option value="特色主食">特色主食</option>
+                    <option value="饮品">饮品</option>
+                  </select>
+                </label>
+              </div>
+              <label class="field">
+                <span>备注</span>
+                <input type="text" id="detail-notes" class="input" maxlength="200" placeholder="口味、版本或小提示…" />
+              </label>
+            </div>
+
+            <div class="detail-section">
+              <div class="detail-section-head">
+                <h3>食材</h3>
+                <button type="button" class="btn btn-ghost btn-sm" id="btn-add-ingredient">＋ 添加</button>
+              </div>
+              <div id="ingredient-rows" class="ingredient-rows"></div>
+            </div>
+
+            <div class="detail-section detail-recipe-section">
+              <div class="detail-section-head">
+                <h3>详细制作过程</h3>
+                <span class="detail-section-hint">你自己写、自己改</span>
+              </div>
+              <textarea id="detail-recipe" class="textarea recipe-editor" rows="14" placeholder="在这里写下制作过程…"></textarea>
+            </div>
+
+            <label class="field">
+              <span>标签（可选，逗号分隔）</span>
+              <input type="text" id="detail-tags" class="input" placeholder="例如：快手,下饭" />
+            </label>
+
+            <p id="detail-form-error" class="form-error hidden"></p>
+            <p class="detail-updated" id="detail-updated"></p>
+
+            <footer class="detail-footer">
+              <button type="button" class="btn btn-ghost" id="btn-detail-back-2">返回</button>
+              <button type="submit" class="btn btn-primary">保存</button>
+            </footer>
+          </form>
+        </div>
+      </section>
+
+      <!-- 周菜单（次要） -->
+      <section id="panel-week" class="panel" role="tabpanel" hidden>
+        <div class="panel-toolbar week-toolbar">
+          <div class="week-nav">
+            <button type="button" class="btn btn-icon" id="btn-week-prev" aria-label="上一周">‹</button>
+            <div class="week-label" id="week-label"></div>
+            <button type="button" class="btn btn-icon" id="btn-week-next" aria-label="下一周">›</button>
+            <button type="button" class="btn btn-ghost" id="btn-week-today">本周</button>
+          </div>
+          <div class="week-actions">
+            <button type="button" class="btn btn-ghost" id="btn-copy-prev-week">复制上周</button>
+            <button type="button" class="btn btn-danger-ghost" id="btn-clear-week">清空本周</button>
+          </div>
+        </div>
+        <div id="week-grid" class="week-grid"></div>
+        <div id="week-empty-hint" class="hint-bar">
+          点击每餐的「＋ 选菜」从菜谱添加；可多选。
+        </div>
+      </section>
+
+      <!-- 采购清单（次要） -->
+      <section id="panel-shopping" class="panel" role="tabpanel" hidden>
+        <div class="panel-toolbar shopping-toolbar">
+          <p class="shopping-week-hint" id="shopping-week-hint"></p>
+          <div class="shopping-actions">
+            <button type="button" class="btn btn-ghost" id="btn-uncheck-all">全部取消勾选</button>
+            <button type="button" class="btn btn-ghost" id="btn-copy-shopping">复制清单</button>
+            <button type="button" class="btn btn-primary" id="btn-print-shopping">打印</button>
+          </div>
+        </div>
+        <div id="shopping-list" class="shopping-list"></div>
+        <div id="shopping-empty" class="empty-state hidden">
+          <div class="empty-icon">🛒</div>
+          <h3>本周还没有采购项</h3>
+          <p>先在「更多 → 周菜单」里安排几道菜，食材会自动汇总到这里。</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>数据仅保存在本机浏览器（localStorage）</span>
+    </footer>
+  </div>
+
+  <!-- 选菜弹窗（周菜单用） -->
+  <div id="pick-modal" class="modal" hidden>
+    <div class="modal-backdrop" data-close="pick"></div>
+    <div class="modal-card modal-card-wide" role="dialog" aria-labelledby="pick-modal-title">
+      <header class="modal-header">
+        <h2 id="pick-modal-title">选择菜品</h2>
+        <button type="button" class="btn btn-icon" data-close="pick" aria-label="关闭">×</button>
+      </header>
+      <div class="modal-body">
+        <input type="search" id="pick-search" class="input" placeholder="筛选菜品…" />
+        <div id="pick-list" class="pick-list"></div>
+      </div>
+      <footer class="modal-footer">
+        <button type="button" class="btn btn-ghost" data-close="pick">取消</button>
+        <button type="button" class="btn btn-primary" id="btn-confirm-pick">确认</button>
+      </footer>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="config.js?v=20260924e"></script>
+  <script src="app.js?v=20260924e"></script>
+</body>
+</html>
