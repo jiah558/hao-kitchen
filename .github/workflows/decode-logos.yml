@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - '_build/logo*.b64*'
+      - '_build/logo*.hex*'
       - '_build/favicon.png.b64'
 permissions:
   contents: write
@@ -16,27 +17,41 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p _build
-          decode() {
-            # Accept raw base64 or pipe-substituted (/ stored as |)
-            tr '|' '/' < "$1" | tr -d '\n\r ' | base64 -d > "$2"
-          }
-          if ls _build/logo.png.b64.* >/dev/null 2>&1; then
-            cat _build/logo.png.b64.* > /tmp/logo.png.b64.all
-            decode /tmp/logo.png.b64.all logo.png
-          elif [ -f _build/logo.png.b64 ]; then
-            decode _build/logo.png.b64 logo.png
-          fi
-          if ls _build/logo-128.png.b64.* >/dev/null 2>&1; then
-            cat _build/logo-128.png.b64.* > /tmp/logo-128.png.b64.all
-            decode /tmp/logo-128.png.b64.all logo-128.png
-          elif [ -f _build/logo-128.png.b64 ]; then
-            decode _build/logo-128.png.b64 logo-128.png
-          fi
-          if [ -f _build/favicon.png.b64 ]; then
-            decode _build/favicon.png.b64 favicon.png
-          fi
-          file logo.png logo-128.png favicon.png || true
-          ls -la logo.png logo-128.png favicon.png
+          python3 <<'PY'
+          from pathlib import Path
+          import base64
+
+          def decode_b64_text(text: str) -> bytes:
+              text = text.replace("|", chr(47)).replace("\n", "").replace("\r", "").replace(" ", "")
+              return base64.b64decode(text)
+
+          build = Path("_build")
+
+          hex_parts = sorted(build.glob("logo.png.hex.*"))
+          b64_parts = sorted(build.glob("logo.png.b64.*"))
+          if hex_parts:
+              hx = "".join(p.read_text() for p in hex_parts)
+              Path("logo.png").write_bytes(decode_b64_text(bytes.fromhex(hx).decode()))
+          elif b64_parts:
+              Path("logo.png").write_bytes(decode_b64_text("".join(p.read_text() for p in b64_parts)))
+          elif (build / "logo.png.b64").exists():
+              Path("logo.png").write_bytes(decode_b64_text((build / "logo.png.b64").read_text()))
+
+          parts128 = sorted(build.glob("logo-128.png.b64.*"))
+          if parts128:
+              Path("logo-128.png").write_bytes(decode_b64_text("".join(p.read_text() for p in parts128)))
+          elif (build / "logo-128.png.b64").exists():
+              Path("logo-128.png").write_bytes(decode_b64_text((build / "logo-128.png.b64").read_text()))
+
+          fav = build / "favicon.png.b64"
+          if fav.exists():
+              Path("favicon.png").write_bytes(decode_b64_text(fav.read_text()))
+
+          for name in ("logo.png", "logo-128.png", "favicon.png"):
+              p = Path(name)
+              if p.exists():
+                  print(name, p.stat().st_size, p.read_bytes()[:8])
+          PY
       - name: Commit decoded logos
         run: |
           set -euo pipefail
