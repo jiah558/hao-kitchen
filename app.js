@@ -498,18 +498,28 @@
       "/contents/" +
       dataPath.split("/").map(encodeURIComponent).join("/");
 
+    for (let attempt = 0; attempt < 3; attempt++) {
     let sha = null;
-    const getRes = await fetch(apiBase + "?ref=" + encodeURIComponent(branch), {
-      headers: {
-        Accept: "application/vnd.github+json",
-        Authorization: "Bearer " + token,
-      },
-    });
+    const getRes = await fetch(
+      apiBase + "?ref=" + encodeURIComponent(branch) + "&t=" + Date.now(),
+      {
+        cache: "no-store",
+        headers: {
+          Accept: "application/vnd.github+json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
     if (getRes.status === 200) {
       const meta = await getRes.json();
       sha = meta.sha;
+      try {
+        const remote = JSON.parse(base64ToUtf8(meta.content || ""));
+        payload = mergeRemoteIntoPayload(remote, payload);
+      } catch (e) {
+        console.warn("merge remote failed", e);
+      }
     } else if (getRes.status !== 404) {
-      const errText = await getRes.text();
       throw new Error("读取线上文件失败 (" + getRes.status + ")");
     }
 
@@ -529,15 +539,78 @@
       },
       body: JSON.stringify(body),
     });
+    if (putRes.status === 409 && attempt < 2) {
+      // 别人刚发布过：重新取最新版，合并后再试
+      await new Promise(function (r) { setTimeout(r, 800); });
+      continue;
+    }
     if (!putRes.ok) {
       let detail = "";
       try {
         const j = await putRes.json();
         detail = j.message || "";
       } catch (e) {}
+      if (putRes.status === 409) detail = "线上菜单刚被别人更新，请刷新页面后再保存";
       throw new Error("发布失败 (" + putRes.status + ")" + (detail ? ": " + detail : ""));
     }
+    // 把合并后的结果同步到页面
+    try {
+      applyParsedState(payload);
+      cacheStateLocally(payload);
+      renderDishes();
+      renderWeek();
+    } catch (e) {}
     return putRes.json();
+    }
+  }
+
+  const DELETED_IDS_KEY = "home-menu-deleted-ids";
+  function getDeletedIds() {
+    try {
+      const a = JSON.parse(localStorage.getItem(DELETED_IDS_KEY) || "[]");
+      return Array.isArray(a) ? a : [];
+    } catch (e) {
+      return [];
+    }
+  }
+  function rememberDeletedId(id) {
+    const a = getDeletedIds();
+    if (a.indexOf(id) === -1) a.push(id);
+    try { localStorage.setItem(DELETED_IDS_KEY, JSON.stringify(a)); } catch (e) {}
+  }
+  function base64ToUtf8(b64) {
+    const bin = atob(String(b64).replace(/\s/g, ""));
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+  }
+  // 合并线上最新版和本机版本：同一道菜取更新时间较新的；
+  // 线上新增、本机没有的菜保留（本机删过的除外）。
+  function mergeRemoteIntoPayload(remote, local) {
+    if (!remote || !Array.isArray(remote.dishes)) return local;
+    const deleted = getDeletedIds();
+    const localMap = {};
+    (local.dishes || []).forEach(function (d) { localMap[d.id] = d; });
+    const out = [];
+    const seen = {};
+    remote.dishes.forEach(function (rd) {
+      if (!rd || !rd.id) return;
+      seen[rd.id] = true;
+      const ld = localMap[rd.id];
+      if (!ld) {
+        if (deleted.indexOf(rd.id) === -1) out.push(rd);
+        return;
+      }
+      const lt = Date.parse(ld.updatedAt || 0) || 0;
+      const rt = Date.parse(rd.updatedAt || 0) || 0;
+      out.push(lt >= rt ? ld : rd);
+    });
+    (local.dishes || []).forEach(function (ld) {
+      if (!seen[ld.id]) out.push(ld);
+    });
+    const weeks = Object.assign({}, remote.weeks || {}, local.weeks || {});
+    const shoppingDone = Object.assign({}, remote.shoppingDone || {}, local.shoppingDone || {});
+    return Object.assign({}, local, { dishes: out, weeks: weeks, shoppingDone: shoppingDone });
   }
 
   /**
@@ -1139,6 +1212,7 @@
     state.dishes = state.dishes.filter(function (x) {
       return x.id !== id;
     });
+    rememberDeletedId(id);
     // Also strip from week menus
     Object.keys(state.weeks || {}).forEach(function (monday) {
       const week = state.weeks[monday];
