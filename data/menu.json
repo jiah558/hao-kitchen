@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-08T09:50:56.137Z",
+  "updatedAt": "2026-10-08T09:51:32.757Z",
   "dishes": [
     {
       "id": "seed-01",
@@ -334,10 +334,10 @@
           "amount": "黄油  番茄酱番茄膏  白糖  香菜"
         }
       ],
-      "recipe": "",
+      "recipe": "牛肉冷水下锅打沫",
       "keypoints": "",
       "tags": [],
-      "updatedAt": "2026-10-08T09:50:56.137Z"
+      "updatedAt": "2026-10-08T09:51:32.757Z"
     }
   ],
   "weeks": {
