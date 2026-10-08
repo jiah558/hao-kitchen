@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-08T10:22:50.864Z",
+  "updatedAt": "2026-10-08T10:23:03.364Z",
   "dishes": [
     {
       "id": "seed-01",
@@ -140,13 +140,13 @@
       "id": "seed-09",
       "name": "临沂炒鸡",
       "category": "荤菜炒菜",
-      "rating": 3,
+      "rating": 3.5,
       "notes": "贾冰版",
       "ingredients": [],
       "recipe": "",
       "keypoints": "",
       "tags": [],
-      "updatedAt": "2026-09-24T12:42:42.137Z"
+      "updatedAt": "2026-10-08T10:23:03.364Z"
     },
     {
       "id": "seed-10",
