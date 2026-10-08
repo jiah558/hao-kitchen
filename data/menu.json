@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-30T11:06:09.784Z",
+  "updatedAt": "2026-10-08T09:43:40.801Z",
   "dishes": [
     {
       "id": "seed-01",
@@ -313,11 +313,24 @@
       "keypoints": "",
       "tags": [],
       "updatedAt": "2026-09-24T13:52:15.028Z"
+    },
+    {
+      "id": "d-muzcmww1-mx3h1j",
+      "name": "新菜品",
+      "category": "荤菜炒菜",
+      "rating": 3,
+      "notes": "开源自@",
+      "ingredients": [],
+      "recipe": "",
+      "keypoints": "",
+      "tags": [],
+      "updatedAt": "2026-10-08T09:43:40.801Z"
     }
   ],
   "weeks": {
     "2026-09-21": {},
-    "2026-09-28": {}
+    "2026-09-28": {},
+    "2026-10-05": {}
   },
   "shoppingDone": {}
 }
