@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-08T09:48:43.923Z",
+  "updatedAt": "2026-10-08T09:50:56.137Z",
   "dishes": [
     {
       "id": "seed-01",
@@ -318,15 +318,15 @@
       "id": "d-muzcmww1-mx3h1j",
       "name": "罐焖牛肉（隋坡版）",
       "category": "荤菜炒菜",
-      "rating": 3,
+      "rating": 3.5,
       "notes": "开源自@",
       "ingredients": [
         {
           "name": "牛肋条300-400g",
-          "amount": ""
+          "amount": "切4cm宽左右"
         },
         {
-          "name": "姜",
+          "name": "一块姜的姜皮",
           "amount": "洋葱  芹菜  胡萝卜  土豆  西红柿  香叶  八角"
         },
         {
@@ -337,7 +337,7 @@
       "recipe": "",
       "keypoints": "",
       "tags": [],
-      "updatedAt": "2026-10-08T09:48:43.923Z"
+      "updatedAt": "2026-10-08T09:50:56.137Z"
     }
   ],
   "weeks": {
