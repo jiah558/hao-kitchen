@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-08T09:48:15.292Z",
+  "updatedAt": "2026-10-08T09:48:43.923Z",
   "dishes": [
     {
       "id": "seed-01",
@@ -322,7 +322,7 @@
       "notes": "开源自@",
       "ingredients": [
         {
-          "name": "牛肋条",
+          "name": "牛肋条300-400g",
           "amount": ""
         },
         {
@@ -337,7 +337,7 @@
       "recipe": "",
       "keypoints": "",
       "tags": [],
-      "updatedAt": "2026-10-08T09:48:15.292Z"
+      "updatedAt": "2026-10-08T09:48:43.923Z"
     }
   ],
   "weeks": {
