@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-08T09:45:22.605Z",
+  "updatedAt": "2026-10-08T09:48:15.292Z",
   "dishes": [
     {
       "id": "seed-01",
@@ -320,11 +320,24 @@
       "category": "荤菜炒菜",
       "rating": 3,
       "notes": "开源自@",
-      "ingredients": [],
+      "ingredients": [
+        {
+          "name": "牛肋条",
+          "amount": ""
+        },
+        {
+          "name": "姜",
+          "amount": "洋葱  芹菜  胡萝卜  土豆  西红柿  香叶  八角"
+        },
+        {
+          "name": "盐",
+          "amount": "黄油  番茄酱番茄膏  白糖  香菜"
+        }
+      ],
       "recipe": "",
       "keypoints": "",
       "tags": [],
-      "updatedAt": "2026-10-08T09:45:22.604Z"
+      "updatedAt": "2026-10-08T09:48:15.292Z"
     }
   ],
   "weeks": {
