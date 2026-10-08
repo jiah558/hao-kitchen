@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-08T09:43:40.801Z",
+  "updatedAt": "2026-10-08T09:44:34.700Z",
   "dishes": [
     {
       "id": "seed-01",
@@ -316,7 +316,7 @@
     },
     {
       "id": "d-muzcmww1-mx3h1j",
-      "name": "新菜品",
+      "name": "罐焖牛肉（隋坡）",
       "category": "荤菜炒菜",
       "rating": 3,
       "notes": "开源自@",
@@ -324,7 +324,7 @@
       "recipe": "",
       "keypoints": "",
       "tags": [],
-      "updatedAt": "2026-10-08T09:43:40.801Z"
+      "updatedAt": "2026-10-08T09:44:34.700Z"
     }
   ],
   "weeks": {
