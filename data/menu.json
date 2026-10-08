@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-08T10:23:03.364Z",
+  "updatedAt": "2026-10-08T10:23:50.496Z",
   "dishes": [
     {
       "id": "seed-01",
@@ -102,7 +102,7 @@
     },
     {
       "id": "seed-06",
-      "name": "香菜牛肉",
+      "name": "香菜泡椒牛肉",
       "category": "荤菜炒菜",
       "rating": 3,
       "notes": "开源自@村驴",
@@ -110,7 +110,7 @@
       "recipe": "",
       "keypoints": "",
       "tags": [],
-      "updatedAt": "2026-09-24T13:37:47.955Z"
+      "updatedAt": "2026-10-08T10:23:50.496Z"
     },
     {
       "id": "seed-07",
