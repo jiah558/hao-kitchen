@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-08T09:44:34.700Z",
+  "updatedAt": "2026-10-08T09:45:17.145Z",
   "dishes": [
     {
       "id": "seed-01",
@@ -324,7 +324,7 @@
       "recipe": "",
       "keypoints": "",
       "tags": [],
-      "updatedAt": "2026-10-08T09:44:34.700Z"
+      "updatedAt": "2026-10-08T09:45:17.145Z"
     }
   ],
   "weeks": {
