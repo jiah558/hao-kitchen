@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-11T04:23:37.349Z",
+  "updatedAt": "2026-10-11T04:26:13.356Z",
   "dishes": [
     {
       "id": "seed-01",
@@ -341,11 +341,32 @@
       "category": "荤菜炒菜",
       "rating": 3,
       "notes": "开源自@",
-      "ingredients": [],
+      "ingredients": [
+        {
+          "name": "前腿肉400-500g，五花和瘦肉分开",
+          "amount": ""
+        },
+        {
+          "name": "蒜",
+          "amount": "7-12个（看大小）"
+        },
+        {
+          "name": "豆豉看着来",
+          "amount": ""
+        },
+        {
+          "name": "辣椒",
+          "amount": ""
+        },
+        {
+          "name": "盐",
+          "amount": "酱肉"
+        }
+      ],
       "recipe": "",
       "keypoints": "",
       "tags": [],
-      "updatedAt": "2026-10-11T04:23:37.349Z"
+      "updatedAt": "2026-10-11T04:26:13.356Z"
     }
   ],
   "weeks": {
