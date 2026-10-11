@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-09T11:07:31.865Z",
+  "updatedAt": "2026-10-11T04:23:08.359Z",
   "dishes": [
     {
       "id": "seed-01",
@@ -334,6 +334,18 @@
       "keypoints": "撇血沫小技巧，第一遍撇干净后，加一勺水， 锅铲砸一下，剩下的血沫就会浮上来。\n",
       "tags": [],
       "updatedAt": "2026-10-08T10:22:50.864Z"
+    },
+    {
+      "id": "d-mv3bi83c-06dz47",
+      "name": "新菜品",
+      "category": "荤菜炒菜",
+      "rating": 3,
+      "notes": "开源自@",
+      "ingredients": [],
+      "recipe": "",
+      "keypoints": "",
+      "tags": [],
+      "updatedAt": "2026-10-11T04:23:08.359Z"
     }
   ],
   "weeks": {
