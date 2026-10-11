@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-11T04:26:13.356Z",
+  "updatedAt": "2026-10-11T04:26:21.046Z",
   "dishes": [
     {
       "id": "seed-01",
@@ -339,7 +339,7 @@
       "id": "d-mv3bi83c-06dz47",
       "name": "青椒炒肉",
       "category": "荤菜炒菜",
-      "rating": 3,
+      "rating": 3.5,
       "notes": "开源自@",
       "ingredients": [
         {
@@ -366,7 +366,7 @@
       "recipe": "",
       "keypoints": "",
       "tags": [],
-      "updatedAt": "2026-10-11T04:26:13.356Z"
+      "updatedAt": "2026-10-11T04:26:21.046Z"
     }
   ],
   "weeks": {
